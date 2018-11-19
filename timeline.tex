@@ -7,8 +7,8 @@
 
 \begin{document}
 
-\tikzset{annotation/.style = {black!70!red}}
-\tikzset{bubble/.style = {anchor=west, annotation, thick, sloped, at end, rounded corners=2pt, draw}}
+\tikzset{annotation/.style = {black!70!blue}}
+\tikzset{bubble/.style = {anchor=west, annotation, thick, sloped, at end, rounded corners=2pt, draw, fill=gray!10}}
 
 \begin{tikzpicture}
 \begin{luacode}
@@ -30,13 +30,13 @@
 		for r=1, #data do
 			local year  = data[r][1]
 			local month = data[r][2]
-			local dy    = data[r][3] + 0.5
+			local dy    = data[r][3] * 0.5+ 0.5
 			local text  = data[r][4]
 			
 			local x = dateX(year,month)
 			
 			tex.sprint('\\draw [annotation]')
-			tex.sprint('(' ..x.. ',0) -- ++(0,' ..dy.. ') -- node [bubble] {\\small ' ..text.. '} +(0.2,0.3);')
+			tex.sprint('(' ..x.. ',0) -- ++(0,' ..dy.. ') -- node [bubble] {\\footnotesize ' ..text.. '} +(0.2,0.1);')
 		end
 		
 		for year=year0, year1-1 do
