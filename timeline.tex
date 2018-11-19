@@ -13,33 +13,46 @@
 \begin{tikzpicture}
 \begin{luacode}
 
-		year0 = 1995
-		year1 = 2025
+		years = {1995, 2005, 2010, 2015, 2020, 2025}
+		s =     {   0, 0.05,  0.2, 0.6,  0.95,    1}
 		x0 = 0
-		x1 = 10
+		x1 = 20
 
 		tex.sprint('\\draw [->] (' ..x0.. ',0) -- (' ..x1.. ',0);')
 
 		require('csv.lua')
 
+		function findi(y)
+			for i=1, #years-1 do
+				if ( years[i] <= y ) and ( y < years[i+1] ) then
+					return i
+				end
+			end
+			return #years-1
+		end
+		
 		function dateX(year, month)
-			return x0 + ( year + ( month - 1 ) / 12 - year0 ) * ( x1 - x0 ) / ( year1 - year0 )
+			y = year + ( month - 1 ) / 12
+			i = findi( y )
+			sy = s[i] + ( s[i+1] - s[i] ) * ( y - years[i] ) / ( years[i+1] - years[i] )
+			xy = x0 + sy * ( x1 - x0 )
+			return xy
 		end
 
-		local data = dataToTable('ij timeline - Sheet1.csv')
+		local data = dataToTable('ij timeline - Sheet0.csv')
 		for r=1, #data do
 			local year  = data[r][1]
 			local month = data[r][2]
-			local dy    = data[r][3] * 0.5+ 0.5
+			local dy    = data[r][3] * 0.8+ 0.5
 			local text  = data[r][4]
 			
 			local x = dateX(year,month)
 			
 			tex.sprint('\\draw [annotation]')
-			tex.sprint('(' ..x.. ',0) -- ++(0,' ..dy.. ') -- node [bubble] {\\footnotesize ' ..text.. '} +(0.2,0.1);')
+			tex.sprint('(' ..x.. ',0) -- ++(0,' ..dy.. ') -- node [bubble] {\\footnotesize ' ..text.. '} +(0.15,0.2);')
 		end
 		
-		for year=year0, year1-1 do
+		for year=years[1], years[#years]-1 do
 			local x = dateX(year,1)
 			if year % 5 == 0 then
 				tex.sprint('\\draw [annotation, fill] (' ..x.. ', 0) circle (0.05);')
