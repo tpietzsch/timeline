@@ -3,6 +3,8 @@
 \usepackage{fontspec}
 \usepackage{luacode}
 
+\usetikzlibrary{calc}
+
 \setmainfont{HelveticaNeue-Light}
 
 \begin{document}
@@ -10,8 +12,8 @@
 \tikzset{annotation/.style   = {black!70!blue, very thin}}
 \tikzset{hlannotation/.style = {black!50!red, very thick}}
 \tikzset{bubble/.style      = {anchor=west,     annotation, sloped, at end, rounded corners=2pt, draw, scale=0.6, fill=gray!5 }}
-\tikzset{hlbubble/.style    = {anchor=west,   hlannotation, sloped, at end, rounded corners=2pt, draw, scale=0.9, fill=red!20, text=black!50!red, semithick }}
-\tikzset{titlebubble/.style = {anchor=center, hlannotation, sloped,         rounded corners=2pt, draw, scale=1.5, fill=red!10, text=black!50!red, semithick }}
+\tikzset{hlbubble/.style    = {anchor=west,   hlannotation, sloped, at end, rounded corners=2pt, draw, scale=0.6, fill=red!20, text=black!50!red }}
+\tikzset{titlebubble/.style = {anchor=center, hlannotation, sloped,         rounded corners=2pt, draw, scale=0.9, fill=red!10, text=black!50!red, semithick }}
 
 \begin{tikzpicture}
 \coordinate (A) at (0.15, 0.06);
@@ -74,36 +76,29 @@
 		-------------------------
 
 
-		-- presenter
-		if ( hlrow > 0 ) then
-			local presenter = data[hlrow][5]
-			tex.sprint('\\node at (0,1) [anchor=north west, green!50!black, scale=0.7, inner sep=0, outer sep=0] {\\footnotesize(' ..presenter.. ')};')
-		end
-
-
 		-- draw timeline
 		tex.sprint('\\draw [->] (' ..x0.. ',0) -- (' ..x1.. ',0);')
 
 
 		-- draw bubble annotations
 		for r=1, #data do
-			if r ~= hlrow then
-			local year   = data[r][1]
-			local month  = data[r][2]
-			local height = data[r][3]
-			local text   = data[r][4]
-			if month == '' then
-				month = 1
-			end
-			if height == '' then
-				height = 0
-			end
+			if ( r ~= hlrow ) and ( data[r][1] ~= "" ) and ( tonumber(data[r][1]) ~= nil ) and ( tonumber(data[r][1]) < years[#years] ) then
+				local year   = data[r][1]
+				local month  = data[r][2]
+				local height = data[r][3]
+				local text   = data[r][4]
+				if month == '' then
+					month = 1
+				end
+				if height == '' then
+					height = 0
+				end
 
-			local dy  = height * 0.8 + 0.15
-			local x = dateX(year,month)
+				local dy  = height * 0.8 + 0.15
+				local x = dateX(year,month)
 			
-			tex.sprint('\\draw [annotation]')
-			tex.sprint('(' ..x.. ',0) -- ++(0,' ..dy.. ') -- node [bubble] {\\footnotesize ' ..text.. '} +(A);')
+				tex.sprint('\\draw [annotation]')
+				tex.sprint('(' ..x.. ',0) -- ++(0,' ..dy.. ') -- node [bubble] {\\footnotesize ' ..text.. '} +(A);')
 			end
 		end
 
@@ -125,11 +120,11 @@
 			hlx = dateX(year,month)
 			local dy  = height * 0.8 + 0.15
 
-			-- tex.sprint('\\draw [hlannotation]')
-			-- tex.sprint('(' ..hlx.. ',0) -- ++(0,' ..dy.. ') -- node [hlbubble] {\\footnotesize ' ..text.. '} +(A);')
-			tex.sprint('\\node [titlebubble] at (10,1) (title) {\\LARGE ' ..text.. '};')
 			tex.sprint('\\draw [hlannotation]')
-			tex.sprint('(' ..hlx.. ',0) -- ++(0,' ..dy.. ') -- (title);')
+			tex.sprint('(' ..hlx.. ',0) -- ++(0,' ..dy.. ') -- node [hlbubble, semithick] {\\footnotesize ' ..text.. '} +(A);')
+			tex.sprint('\\node [titlebubble] at (10,1.5) (title) {\\LARGE ' ..text.. '};')
+			-- tex.sprint('\\draw [hlannotation] let \\p1=(title.south) in ')
+			-- tex.sprint('(' ..hlx.. ',0) -- ++(0,\\y1) -- (title);')
 		end
 
 
@@ -153,6 +148,13 @@
 			else
 				tex.sprint('\\draw [' .. astyle .. ', thin, fill] (' ..x.. ', 0) -- +(0,-0.05);')
 			end
+		end
+
+
+		-- presenter
+		if ( hlrow > 0 ) then
+			local presenter = data[hlrow][5]
+			tex.sprint('\\node at (0,0) [anchor=south west, green!50!black, scale=0.7, inner sep=0, outer sep=0] {\\Large(' ..presenter.. ')};')
 		end
 
 

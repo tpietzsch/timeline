@@ -1,5 +1,54 @@
-1997,1,0,ImageJ,Curtis,ij1
-2005,1,0,WCIF ImageJ,Curtis,wcif
-2006,,,"Bio-Formats, plugins for ImageJ",Curtis,bioformats
-2007,1,1,TrakEM2,Christian,
-2007,12,0,Fiji is born!,Tobias,fiji
+Year,Month,Height,Description,Talker,
+1997,1,1,ImageJ,Curtis,ij1
+2005,1,0,WCIF ImageJ,Curtis,wcifij
+2006,1,0,Bio-Formats plugins for ImageJ,Curtis,bioformats
+2007,1,1,TrakEM2,Curtis,trakem2
+2007,12,0,Fiji is born!,Curtis,fiji
+,,,,,
+2008,,,2nd ImageJ Conference,Christian,
+2008,,,Start of ImgLib at first MPI-CBG Fiji hackathon,Tobias,imglib1
+2009,,,ImageJ2,Curtis,
+2009,,,KNIME Image Processing ImgLib1,Christian,knime-imglib1
+2010,3,,EMBL Heidelberg,Curtis,
+2010,,,Preibisch SPIM Registration tools,Tobias,
+2010,10,,3rd ImageJ conference,Curtis?,
+2011,1,,ImgLib2,Tobias,imglib2
+2011,,,KNIME Image Processing ImgLib2,Christian,knime-imglib2
+2011,9,,SCIFIO effort begun,Curtis,scifio
+2011,2,,Icy beta announced,Curtis,icy-beta
+2011,12,,"SciJava! Hackathon @ MPI-CBG: KNIME, ImageJ, Icy, OMERO",Curtis/Christian,
+2012,4,,ISBI 2012 - “Is there a future beyond ImageJ?” - Barcelona,Christian,
+2012,,,BigDataViewer,Tobias,
+2012,,,First Konstanz Hackathon,Christian,
+2012,,,4th ImageJ conference,Christian,
+2013,,,ImageJ + OMERO integration,Curtis,
+2014,3,,ImageJ Ops (rebirth of “ImgLib2 OPS” from years earlier),Christian,
+2014,,,Mastodon (“TrackMate3”),Tobias,mastodon
+2014,,,Fiji switched to ImageJ2,Curtis,
+2015,1,,KNIME CellProfiler (Hackathon in KN).,Christian,
+2015,9,,ImageJ conference hackathon,Curtis,
+2013,,,ImageJ Server,Curtis,
+2016,,,Migration to Java 8 - death of Java 3D - need a new solution...,Curtis,java8
+2016,,,Janelia Hackathon,Christian,janelia-hackathon
+2016,,,NEUBIAS funded,Tobias,
+2017,2,,ImageJ2 in a Beaker Notebook,Curtis,
+2017,3,,imglib2-cache,Tobias,imglib2-cache
+2017,2,,ROI hackathon in Madison,TBD,
+2017,3,,ImgLyb,TBD,
+2017,9,,Jupyter,TBD,
+2018,1,,ImageJ + CellProfiler in a notebook,TBD,
+2018,,,The year of CARE!!!,Tobias,care
+2018,4,,SciView hackathon,TBD,sciview-hackathon
+2018,3,,imagej.py (built on ImgLyb),TBD,
+2018,5,,imagej-node / ImageJ Electron prototype,TBD,nodejs
+2018,8,,Image.sc Forum -- merged ImageJ + CellProfiler + others!,TBD,
+2018,10,,Saalfeld ranting about STILL NO HTTPS,TBD,https
+2018,12,,I2K: ImageJ \& Friends Conference,TBD,i2k
+,,,,,
+2019,,,KNIME Image Processing 2.0 / CompGraphs,Christian,compgraphs
+2020,,,Rich images? E.g.,,
+2021,,,Saalfeld ranting about ops,,
+2022,,,Saalfeld ranting about ops,,
+2030,,,Saalfeld ranting about ops,,
+,,,,,
+2099,,,Ops 1.0.0; robots destroy humanity,,

@@ -7,7 +7,7 @@ function printcommands(hlkey)
 	io.write("echo " .. hlkey .. " > highlighted\n")
 	-- io.write("cat highlighted\n")
 	io.write("lualatex timeline.tex\n")
-	io.write("convert -density 300 timeline.pdf -quality 90 timeline-highlight-" .. hlkey .. ".png\n")
+	io.write("convert -density 600 timeline.pdf -quality 90 timeline-highlight-" .. hlkey .. ".png\n")
 end
 
 require"csv"
