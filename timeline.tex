@@ -60,7 +60,7 @@
 		local file = io.open('highlighted')
 			hlkey = file:read()
 		file:close()
-		hlrow = 1
+		local hlrow = 0
 		for r=1, #data do
 			if data[r][6] == hlkey then
 				hlrow = r
@@ -74,8 +74,10 @@
 
 
 		-- presenter
-		local presenter = data[hlrow][5]
-		tex.sprint('\\node at (0,1) [anchor=north west, green!50!black, scale=0.7, inner sep=0, outer sep=0] {\\footnotesize(' ..presenter.. ')};')
+		if ( hlrow > 0 ) then
+			local presenter = data[hlrow][5]
+			tex.sprint('\\node at (0,1) [anchor=north west, green!50!black, scale=0.7, inner sep=0, outer sep=0] {\\footnotesize(' ..presenter.. ')};')
+		end
 
 
 		-- draw timeline
@@ -103,30 +105,34 @@
 		end
 
 
-
 		-- draw highlighted bubble annotation
-		local year   = data[hlrow][1]
-		local month  = data[hlrow][2]
-		local height = data[hlrow][3]
-		local text   = data[hlrow][4]
-		if month == '' then
-			month = 1
+		local hlx = -1
+		if ( hlrow > 0 ) then
+			local year   = data[hlrow][1]
+			local month  = data[hlrow][2]
+			local height = data[hlrow][3]
+			local text   = data[hlrow][4]
+			if month == '' then
+				month = 1
+			end
+			if height == '' then
+				height = 0
+			end
+			
+			hlx = dateX(year,month)
+			local dy  = height * 0.8 + 0.15
+
+			tex.sprint('\\draw [hlannotation]')
+			tex.sprint('(' ..hlx.. ',0) -- ++(0,' ..dy.. ') -- node [hlbubble] {\\footnotesize ' ..text.. '} +(A);')
 		end
-		if height == '' then
-			height = 0
-		end
-
-		local dy  = height * 0.8 + 0.15
-		local hlx = dateX(year,month)
-
-		tex.sprint('\\draw [hlannotation]')
-		tex.sprint('(' ..hlx.. ',0) -- ++(0,' ..dy.. ') -- node [hlbubble] {\\footnotesize ' ..text.. '} +(A);')
-
 
 
 		-- draw timeline progress
 		tex.sprint('\\draw [->, very thin] (' ..x0.. ',0) -- (' ..x1.. ',0);')
-		tex.sprint('\\draw [hlannotation] (' ..x0.. ',0) -- (' ..hlx.. ',0);')
+		if ( hlrow > 0 ) then
+			tex.sprint('\\draw [hlannotation] (' ..x0.. ',0) -- (' ..hlx.. ',0);')
+		end
+
 
 		-- draw years and ticks
 		for year=years[1], years[#years]-1 do
