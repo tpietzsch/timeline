@@ -18,8 +18,12 @@ function dataToTable(file, delim)
         data[row] = {} --Initialize array within array (make 2d)
         local col = 1 --Used for adding individual columns of data
         data[row][col] = ""
+        local in_quotes = false
         for ch in current:gmatch('.') do --ch is a character in the string
-            if ch == delim then
+            if ch == '"' then
+                in_quotes = not in_quotes
+            end
+            if ch == delim and not in_quotes then
                 col = col + 1
                 data[row][col] = "" --initialize string in new column
             else
