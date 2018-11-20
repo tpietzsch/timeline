@@ -7,10 +7,13 @@
 
 \begin{document}
 
-\tikzset{annotation/.style = {black!70!blue}}
-\tikzset{bubble/.style = {anchor=west, annotation, thick, sloped, at end, rounded corners=2pt, draw, fill=gray!10}}
+\tikzset{annotation/.style   = {black!70!blue, very thin}}
+\tikzset{hlannotation/.style = {black!50!red, very thick}}
+\tikzset{bubble/.style   = {anchor=west,   annotation, sloped, at end, rounded corners=2pt, draw, scale=0.6, fill=gray!5 }}
+\tikzset{hlbubble/.style = {anchor=west, hlannotation, sloped, at end, rounded corners=2pt, draw, scale=0.9, fill=red!20, text=black!50!red, semithick }}
 
 \begin{tikzpicture}
+\coordinate (A) at (0.15, 0.06);
 \begin{luacode}
 
 		years = {1995, 2005, 2010, 2015, 2020, 2025}
@@ -18,10 +21,11 @@
 		x0 = 0
 		x1 = 20
 
-		tex.sprint('\\draw [->] (' ..x0.. ',0) -- (' ..x1.. ',0);')
 
-		require('csv.lua')
+		-- helper functions --
+		----------------------
 
+		-- find index in years such that years[i] <= y < years[i+1]
 		function findi(y)
 			for i=1, #years-1 do
 				if ( years[i] <= y ) and ( y < years[i+1] ) then
@@ -30,7 +34,9 @@
 			end
 			return #years-1
 		end
-		
+
+
+		-- compute X coordinate corresponding to (year, month) for drawing
 		function dateX(year, month)
 			y = year + ( month - 1 ) / 12
 			i = findi( y )
@@ -39,28 +45,105 @@
 			return xy
 		end
 
-		local data = dataToTable('ij timeline - Sheet0.csv')
+
+
+		-- read data from csv file --
+		-----------------------------
+
+		require('csv.lua')
+		local data = dataToTable('ij timeline - Sheet1.csv')
+
+
+
+		-- read data from "highlighted" file --
+		---------------------------------------
+		local file = io.open('highlighted')
+			hlkey = file:read()
+		file:close()
+		hlrow = 1
 		for r=1, #data do
-			local year  = data[r][1]
-			local month = data[r][2]
-			local dy    = data[r][3] * 0.8+ 0.5
-			local text  = data[r][4]
-			
+			if data[r][6] == hlkey then
+				hlrow = r
+				break
+			end
+		end
+
+
+		-- create TikZ drawing --
+		-------------------------
+
+
+		-- presenter
+		local presenter = data[hlrow][5]
+		tex.sprint('\\node at (0,1) [anchor=north west, green!50!black, scale=0.7, inner sep=0, outer sep=0] {\\footnotesize(' ..presenter.. ')};')
+
+
+		-- draw timeline
+		tex.sprint('\\draw [->] (' ..x0.. ',0) -- (' ..x1.. ',0);')
+
+
+		-- draw bubble annotations
+		for r=1, #data do
+			local year   = data[r][1]
+			local month  = data[r][2]
+			local height = data[r][3]
+			local text   = data[r][4]
+			if month == '' then
+				month = 1
+			end
+			if height == '' then
+				height = 0
+			end
+
+			local dy  = height * 0.8 + 0.15
 			local x = dateX(year,month)
 			
 			tex.sprint('\\draw [annotation]')
-			tex.sprint('(' ..x.. ',0) -- ++(0,' ..dy.. ') -- node [bubble] {\\footnotesize ' ..text.. '} +(0.15,0.2);')
+			tex.sprint('(' ..x.. ',0) -- ++(0,' ..dy.. ') -- node [bubble] {\\footnotesize ' ..text.. '} +(A);')
 		end
-		
+
+
+
+		-- draw highlighted bubble annotation
+		local year   = data[hlrow][1]
+		local month  = data[hlrow][2]
+		local height = data[hlrow][3]
+		local text   = data[hlrow][4]
+		if month == '' then
+			month = 1
+		end
+		if height == '' then
+			height = 0
+		end
+
+		local dy  = height * 0.8 + 0.15
+		local hlx = dateX(year,month)
+
+		tex.sprint('\\draw [hlannotation]')
+		tex.sprint('(' ..hlx.. ',0) -- ++(0,' ..dy.. ') -- node [hlbubble] {\\footnotesize ' ..text.. '} +(A);')
+
+
+
+		-- draw timeline progress
+		tex.sprint('\\draw [->, very thin] (' ..x0.. ',0) -- (' ..x1.. ',0);')
+		tex.sprint('\\draw [hlannotation] (' ..x0.. ',0) -- (' ..hlx.. ',0);')
+
+		-- draw years and ticks
 		for year=years[1], years[#years]-1 do
 			local x = dateX(year,1)
+			local astyle = 'black'
+			if x <= hlx then
+				astyle = 'hlannotation'
+			end
 			if year % 5 == 0 then
-				tex.sprint('\\draw [annotation, fill] (' ..x.. ', 0) circle (0.05);')
-				tex.sprint('\\node at (' ..x.. ',-0.1) [rotate=90, scale=0.8, anchor=east] {' ..year.. '};')
+				tex.sprint('\\draw [' .. astyle .. ', very thin, fill] (' ..x.. ', 0) circle (0.05);')
+				tex.sprint('\\node at (' ..x.. ',0) [rotate=45, scale=0.6, anchor=north east] {\\footnotesize ' ..year.. '};')
 			else
-				tex.sprint('\\draw [annotation, fill] (' ..x.. ', 0) -- +(0,-0.05);')
+				tex.sprint('\\draw [' .. astyle .. ', thin, fill] (' ..x.. ', 0) -- +(0,-0.05);')
 			end
 		end
+
+
 \end{luacode}
 \end{tikzpicture}
 \end{document}
