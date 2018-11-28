@@ -4,21 +4,39 @@
 \usepackage{luacode}
 
 \usetikzlibrary{calc}
+\usetikzlibrary{backgrounds}
 
-\setmainfont{HelveticaNeue-Light}
+\setmainfont[BoldFont={HelveticaNeue_Bold}]{HelveticaNeue_Light}
 
 \begin{document}
 
-\tikzset{annotation/.style   = {black!70!blue, very thin}}
-\tikzset{hlannotation/.style = {black!50!red, very thick}}
-\tikzset{bubble/.style      = {anchor=west,     annotation, sloped, at end, rounded corners=2pt, draw, scale=0.6, fill=gray!5 }}
-\tikzset{hlbubble/.style    = {anchor=west,   hlannotation, sloped, at end, rounded corners=2pt, draw, scale=0.6, fill=red!20, text=black!50!red }}
-\tikzset{titlebubble/.style = {anchor=center, hlannotation, sloped,         rounded corners=2pt, draw, scale=0.9, fill=red!10, text=black!50!red, semithick }}
+\newcommand\timelinecolor{white}
 
-\begin{tikzpicture}
+\newcommand\annotationcolor{white}
+\newcommand\bubblefillcolor{gray!20!black}
+\newcommand\bubbletextcolor{white}
+
+\newcommand\hlcolor{white!20!green}
+\newcommand\hlbubblefillcolor{\bubblefillcolor}
+\newcommand\hlbubbletextcolor{white!60!green}
+
+\newcommand\titlebubblecolor{white!20!green}
+\newcommand\titlebubblefillcolor{black!90!green}
+\newcommand\titlebubbletextcolor{white!50!green}
+
+
+\tikzset{annotation/.style   = {draw=\annotationcolor, semithick}}
+\tikzset{hlannotation/.style = {draw=\hlcolor, very thick}}
+\tikzset{bubble/.style      = {anchor=west,     annotation, sloped, at end, rounded corners=2pt, scale=0.6, fill=\bubblefillcolor, text=\bubbletextcolor }}
+\tikzset{hlbubble/.style    = {anchor=west,   hlannotation, sloped, at end, rounded corners=2pt, scale=0.6, fill=\hlbubblefillcolor, text=\hlbubbletextcolor, thick }}
+\tikzset{titlebubble/.style = {anchor=center, hlannotation, sloped,         rounded corners=2pt, scale=0.9, inner sep=10pt, fill opacity=0.6, text opacity=1, draw=\titlebubblecolor, fill=\titlebubblefillcolor, text=\titlebubbletextcolor, very thick }}
+
+\begin{tikzpicture}%[background rectangle/.style={fill=black!80!white}, show background rectangle]
 \coordinate (A) at (0.15, 0.06);
 \begin{luacode}
 
+		showpresenter = false
+		
 		years = {1995, 2005, 2010, 2015, 2020, 2025}
 		s =     {   0, 0.05,  0.2, 0.6,  0.95,    1}
 		x0 = 0
@@ -77,7 +95,7 @@
 
 
 		-- draw timeline
-		tex.sprint('\\draw [->] (' ..x0.. ',0) -- (' ..x1.. ',0);')
+		tex.sprint('\\draw [->, annotation, \timelinecolor] (' ..x0.. ',0) -- (' ..x1.. ',0);')
 
 
 		-- draw bubble annotations
@@ -121,15 +139,14 @@
 			local dy  = height * 0.8 + 0.15
 
 			tex.sprint('\\draw [hlannotation]')
-			tex.sprint('(' ..hlx.. ',0) -- ++(0,' ..dy.. ') -- node [hlbubble, semithick] {\\footnotesize ' ..text.. '} +(A);')
-			tex.sprint('\\node [titlebubble] at (10,1.5) (title) {\\LARGE ' ..text.. '};')
+			tex.sprint('(' ..hlx.. ',0) -- ++(0,' ..dy.. ') -- node [hlbubble] {\\footnotesize \\textbf{' ..text.. '}} +(A);')
+			tex.sprint('\\node [titlebubble] at (10,1.5) (title) {\\LARGE \\textbf{' ..text.. '}};')
 			-- tex.sprint('\\draw [hlannotation] let \\p1=(title.south) in ')
 			-- tex.sprint('(' ..hlx.. ',0) -- ++(0,\\y1) -- (title);')
 		end
 
 
 		-- draw timeline progress
-		tex.sprint('\\draw [->, very thin] (' ..x0.. ',0) -- (' ..x1.. ',0);')
 		if ( hlrow > 0 ) then
 			tex.sprint('\\draw [hlannotation] (' ..x0.. ',0) -- (' ..hlx.. ',0);')
 		end
@@ -138,13 +155,15 @@
 		-- draw years and ticks
 		for year=years[1], years[#years]-1 do
 			local x = dateX(year,1)
-			local astyle = 'black'
+			local astyle = 'annotation, fill=\timelinecolor'
+			local radius = '0.04'
 			if x <= hlx then
-				astyle = 'hlannotation'
+				astyle = 'hlannotation, fill=\hlcolor'
+				radius = '0.06'
 			end
 			if year % 5 == 0 then
-				tex.sprint('\\draw [' .. astyle .. ', very thin, fill] (' ..x.. ', 0) circle (0.05);')
-				tex.sprint('\\node at (' ..x.. ',0) [rotate=45, scale=0.6, anchor=north east] {\\footnotesize ' ..year.. '};')
+				tex.sprint('\\draw [' .. astyle .. ', very thin, fill] (' ..x.. ', 0) circle (' ..radius.. ');')
+				tex.sprint('\\node at (' ..x.. ',0) [rotate=45, scale=0.6, anchor=north east, text=\timelinecolor] {\\footnotesize ' ..year.. '};')
 			else
 				tex.sprint('\\draw [' .. astyle .. ', thin, fill] (' ..x.. ', 0) -- +(0,-0.05);')
 			end
@@ -152,7 +171,7 @@
 
 
 		-- presenter
-		if ( hlrow > 0 ) then
+		if ( hlrow > 0 and showpresenter ) then
 			local presenter = data[hlrow][5]
 			tex.sprint('\\node at (0,0) [anchor=south west, green!50!black, scale=0.7, inner sep=0, outer sep=0] {\\Large(' ..presenter.. ')};')
 		end
