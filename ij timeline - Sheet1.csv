@@ -1,54 +1,62 @@
-Year,Month,Height,Description,Talker,
-1997,1,1,ImageJ,Curtis,ij1
-2005,1,0,WCIF ImageJ,Curtis,wcifij
-2006,1,0,Bio-Formats plugins for ImageJ,Curtis,bioformats
-2007,1,1,TrakEM2,Curtis,trakem2
-2007,12,0,Fiji is born!,Curtis,fiji
-,,,,,
-2008,,,2nd ImageJ Conference,Christian,
-2008,,,Start of ImgLib at first MPI-CBG Fiji hackathon,Tobias,imglib1
-2009,,,ImageJ2,Curtis,
-2009,,,KNIME Image Processing ImgLib1,Christian,knime-imglib1
-2010,3,,EMBL Heidelberg,Curtis,
-2010,,,Preibisch SPIM Registration tools,Tobias,
-2010,10,,3rd ImageJ conference,Curtis?,
-2011,1,,ImgLib2,Tobias,imglib2
-2011,,,KNIME Image Processing ImgLib2,Christian,knime-imglib2
-2011,9,,SCIFIO effort begun,Curtis,scifio
-2011,2,,Icy beta announced,Curtis,icy-beta
-2011,12,,"SciJava! Hackathon @ MPI-CBG: KNIME, ImageJ, Icy, OMERO",Curtis/Christian,
-2012,4,,ISBI 2012 - “Is there a future beyond ImageJ?” - Barcelona,Christian,
-2012,,,BigDataViewer,Tobias,
-2012,,,First Konstanz Hackathon,Christian,
-2012,,,4th ImageJ conference,Christian,
-2013,,,ImageJ + OMERO integration,Curtis,
-2014,3,,ImageJ Ops (rebirth of “ImgLib2 OPS” from years earlier),Christian,
-2014,,,Mastodon (“TrackMate3”),Tobias,mastodon
-2014,,,Fiji switched to ImageJ2,Curtis,
-2015,1,,KNIME CellProfiler (Hackathon in KN).,Christian,
-2015,9,,ImageJ conference hackathon,Curtis,
-2013,,,ImageJ Server,Curtis,
-2016,,,Migration to Java 8 - death of Java 3D - need a new solution...,Curtis,java8
-2016,,,Janelia Hackathon,Christian,janelia-hackathon
-2016,,,NEUBIAS funded,Tobias,
-2017,2,,ImageJ2 in a Beaker Notebook,Curtis,
-2017,3,,imglib2-cache,Tobias,imglib2-cache
-2017,2,,ROI hackathon in Madison,TBD,
-2017,3,,ImgLyb,TBD,
-2017,9,,Jupyter,TBD,
-2018,1,,ImageJ + CellProfiler in a notebook,TBD,
-2018,,,The year of CARE!!!,Tobias,care
-2018,4,,SciView hackathon,TBD,sciview-hackathon
-2018,3,,imagej.py (built on ImgLyb),TBD,
-2018,5,,imagej-node / ImageJ Electron prototype,TBD,nodejs
-2018,8,,Image.sc Forum -- merged ImageJ + CellProfiler + others!,TBD,
-2018,10,,Saalfeld ranting about STILL NO HTTPS,TBD,https
-2018,12,,I2K: ImageJ \& Friends Conference,TBD,i2k
-,,,,,
-2019,,,KNIME Image Processing 2.0 / CompGraphs,Christian,compgraphs
-2020,,,Rich images? E.g.,,
-2021,,,Saalfeld ranting about ops,,
-2022,,,Saalfeld ranting about ops,,
-2030,,,Saalfeld ranting about ops,,
-,,,,,
-2099,,,Ops 1.0.0; robots destroy humanity,,
+Year,Month,Height,Description,Talker,png id,Short Description,people highlighted,notes
+1997,1,,ImageJ,Curtis,ij1,ImageJ,rasband,
+2004,8,2,First VisBio commit,Curtis,visbio,1st VisBio commit,ctrueden,
+2004,8,1,First CellProfiler commit,Curtis,cellprofiler,1st CellProfiler commit,"anne carpenter, ray jones",
+2005,1,,WCIF ImageJ,Curtis,wcifij,WCIF ImageJ,,
+2006,3,1,Bio-Formats plugins for ImageJ,Curtis,bioformats,Bio-Formats plugins,,
+2006,5,,1st ImageJ Conference,Curtis,conference-2006,1st ImageJ Conference,andreas jahnen,
+2007,6,2,TrakEM2,Curtis,trakem2,TrakEM2,albert,
+2007,12,1.5,Fiji is born!,Curtis/Tobias,fiji,Fiji,"johannes, pavel?, others?",
+2008,4,1.5,N/A,Tobias,,Hackathon @ MPI-CBG,,
+2008,4,,Start of ImgLib at first MPI-CBG Fiji hackathon,Tobias,imglib1,ImgLib,,
+2008,11,1,2nd ImageJ Conference,Christian,conference-2008,2nd ImageJ Conference,,
+2009,6,2,KNIME Image Processing ImgLib1,Christian,knime-imglib1,KNIP ImgLib,,
+2009,7,1.25,Ilastik project started,Christian,ilastik,Ilastik started,"anna k, carsten, ??",
+2009,8,0.5,First scikit-image commit,Curtis,scikit-image,1st scikit-image commit,stefanv,
+2009,12,0,ImageJDev project launches,Curtis,funding-imagejdev,ImageJDev project,"kevin, cellprofiler team, MBL folks",
+2010,3,,Fiji hackathon @ EMBL Heidelberg,Curtis,hackathon-2010,Hackathon @ EMBL,,
+2010,6,,Preibisch SPIM Registration tools,Tobias,spimreg,SPIM Registration,,
+2010,10,,3rd ImageJ conference,Curtis?,conference-2010,3rd ImageJ conference,,
+2011,1,1.5,N/A,Tobias,,Hackathon @ Madison,,
+2011,1,0.75,ImgLib2 at Madison hackathon,Tobias,imglib2,ImgLib2,,
+2011,2,,Icy beta announced,Curtis,icy-beta,Icy beta,,
+2011,6,,KNIME Image Processing ImgLib2,Christian,knime-imglib2,KNIP ImgLib2,,
+2011,9,,SCIFIO,Curtis,scifio,SCIFIO,,
+2011,12,,"SciJava! Hackathon @ MPI-CBG: KNIME, ImageJ, Icy, OMERO",Curtis/Christian,hackathon-2011,Hackathon @ MPI-CBG,,
+2012,4,2,ISBI 2012 - “Is there a future beyond ImageJ?” - Barcelona,Christian,isbi-2012,ISBI Barcelona,,
+2012,5,,BigDataViewer,Tobias,bdv,1st BigDataViewer commit,,
+2012,10,,First Konstanz Hackathon,Christian,hackathon-2012,Hackathon @ KNIME,,
+2012,10,,4th ImageJ conference,Christian,conference-2012,4th ImageJ conference,,
+2013,6,,ImageJ + OMERO integration begun,Curtis,imagej-omero,ImageJ + OMERO,,
+2014,3,2.25,ImageJ Ops (rebirth of “ImgLib2 OPS” from years earlier),Christian,hackathon-2014-ops,ImageJ Ops,,
+2014,3,1.5,Ilastik Hackathon (FIJI + KNIME @ Heidelberg),Christian,hackathon-2014-ilastik,Hackathon @ HCI,,
+2014,4,0.75,Fiji source code split into separate GitHub repositories,Curtis,fiji-repo-split,Fiji repo split,,
+2014,5,,Mastodon (“TrackMate3”),Tobias,mastodon,1st Mastodon commit,,
+2014,11,0.5,"Fiji built on ImageJ2, with reproducible builds!",Curtis,fiji-imagej2,Fiji built on ImageJ2,,
+2015,1,0.25,KNIME CellProfiler (Hackathon in KN).,Christian,hackathon-2015,KNIME CellProfiler,,
+2015,6,0.5,BoneJ2 funded,Curtis,bonej2,BoneJ2 funded,"mdoube, rimadoma",
+2015,9,0.25,5th ImageJ conference + hackathon,Curtis,conference-2015,5th ImageJ conference,,
+2015,12,,Migration to Java 8 - death of Java 3D - need a new solution...,Curtis,imagej-java8,Migration to Java 8,"ctrueden, jogamp logo?",
+2016,4,0,NEUBIAS funded,Tobias,funding-neubias,NEUBIAS funded,neubias logo,
+2016,6,1,Janelia Hackathon,Christian,hackathon-2016-janelia,Hackathon @ Janelia,,
+2016,10,0,ImageJ Server,Curtis,imagej-server,ImageJ Server,leon yang,"Began in 2013, but was not developed heavily till Leon."
+2016,12,2.5,DAIS funded,Tobias,funding-dais,DAIS funded,fjug?,
+2017,2,,ImageJ in a Beaker Notebook,Curtis,imagej-beaker,IJ in Beaker notebook,,
+2017,1,2,imglib2-cache,Tobias,imglib2-cache,imglib2-cache,,
+2017,2,1,ROI hackathon in Madison,Tobias,hackathon-2017-rois,Hackathon @ LOCI,alison,
+2017,3,0.25,ImgLyb,Curtis,imglyb,ImgLyb,hanslovsky,
+2017,3,2,ImageJ-TensorFlow,Curtis,imagej-tensorflow,ImageJ-TensorFlow,"google, loci, mpi",
+2017,5,0,ImageJ in a Jupyter notebook,Curtis,imagej-jupyter,IJ in Jupyter notebook,hadim,scijava-jupyter-kernel
+2018,1,2,The year of CARE!!!,Tobias,care,The year of CARE,florian,3d decon video or animated gif
+2018,1,,ImageJ + CellProfiler in a notebook,Curtis,cellprofiler-notebook,IJ + CellProfiler in notebook,,
+2018,4,2,SciView hackathon,Curtis/Tobias,sciview-hackathon,SciView hackathon,kyle,BigDataViewer 3D --> Tobi
+2018,5,1,imagej.py (built on ImgLyb),Curtis,imagejpy,imagej.py,,
+2018,5,,imagej-node / ImageJ Electron prototype,Curtis,nodejs,imagej-node,,
+2018,6,2,FiSS funded (Fiji Software Sustainability),Tobias,fiss,FiSS funded,,
+2018,8,1,Image.sc Forum merging ImageJ + CellProfiler + others,Curtis,forum-merge,Image.sc forum merge,,
+2018,9,,"10,000 citations on Fiji paper",Tobias,fiji-10k,Fiji 10k,"Pavel, Florian",
+2018,12,1,I2K: ImageJ \& Friends Conference,TBD,i2k,I2K @ EMBL,,
+2019,1,,Parallelisation Hackathon Ostrava,Tobias,ostrava,Hackathon @ Ostrava,,
+2020,2,,Rich images? E.g.,,,Rich images?,,
+2019,12,,KNIME Image Processing 2.0 / CompGraphs,Christian,compgraphs,KNIP 2.0,,
+2099,,,Ops 1.0.0; robots destroy humanity,,the-end,Ops 1.0.0?,,

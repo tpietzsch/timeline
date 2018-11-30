@@ -33,15 +33,17 @@
 
 \begin{tikzpicture}%[background rectangle/.style={fill=black!80!white}, show background rectangle]
 \coordinate (A) at (0.15, 0.06);
+\draw [green, fill, opacity=0.02] (10,1.37) circle (0.01);
 \begin{luacode}
 
 		showpresenter = false
 		
-		years = {1995, 2005, 2010, 2015, 2020, 2025}
-		s =     {   0, 0.05,  0.2, 0.6,  0.95,    1}
+		years = {1995, 2005, 2010, 2015, 2016, 2019, 2100}
+		s =     {   0, 0.05,  0.2, 0.6,  0.65, 0.97,    1}
 		x0 = 0
 		x1 = 20
 
+		printyears = {1995, 2000, 2005, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019}
 
 		-- helper functions --
 		----------------------
@@ -92,7 +94,7 @@
 
 		-- create TikZ drawing --
 		-------------------------
-
+		
 
 		-- draw timeline
 		tex.sprint('\\draw [->, annotation, \timelinecolor] (' ..x0.. ',0) -- (' ..x1.. ',0);')
@@ -104,7 +106,7 @@
 				local year   = data[r][1]
 				local month  = data[r][2]
 				local height = data[r][3]
-				local text   = data[r][4]
+				local text   = data[r][7]
 				if month == '' then
 					month = 1
 				end
@@ -112,7 +114,7 @@
 					height = 0
 				end
 
-				local dy  = height * 0.8 + 0.15
+				local dy  = height * 0.2 + 0.15
 				local x = dateX(year,month)
 			
 				tex.sprint('\\draw [annotation]')
@@ -127,7 +129,8 @@
 			local year   = data[hlrow][1]
 			local month  = data[hlrow][2]
 			local height = data[hlrow][3]
-			local text   = data[hlrow][4]
+			local title  = data[hlrow][4]
+			local text   = data[hlrow][7]
 			if month == '' then
 				month = 1
 			end
@@ -136,11 +139,11 @@
 			end
 			
 			hlx = dateX(year,month)
-			local dy  = height * 0.8 + 0.15
+			local dy  = height * 0.2 + 0.15
 
 			tex.sprint('\\draw [hlannotation]')
 			tex.sprint('(' ..hlx.. ',0) -- ++(0,' ..dy.. ') -- node [hlbubble] {\\footnotesize \\textbf{' ..text.. '}} +(A);')
-			tex.sprint('\\node [titlebubble] at (10,1.5) (title) {\\LARGE \\textbf{' ..text.. '}};')
+			tex.sprint('\\node [titlebubble, anchor=south] at (10,0.2) (title) {\\LARGE \\textbf{' ..title.. '}};')
 			-- tex.sprint('\\draw [hlannotation] let \\p1=(title.south) in ')
 			-- tex.sprint('(' ..hlx.. ',0) -- ++(0,\\y1) -- (title);')
 		end
@@ -153,7 +156,7 @@
 
 
 		-- draw years and ticks
-		for year=years[1], years[#years]-1 do
+		for year=years[1], 2020 do
 			local x = dateX(year,1)
 			local astyle = 'annotation, fill=\timelinecolor'
 			local radius = '0.04'
@@ -163,10 +166,15 @@
 			end
 			if year % 5 == 0 then
 				tex.sprint('\\draw [' .. astyle .. ', very thin, fill] (' ..x.. ', 0) circle (' ..radius.. ');')
-				tex.sprint('\\node at (' ..x.. ',0) [rotate=45, scale=0.6, anchor=north east, text=\timelinecolor] {\\footnotesize ' ..year.. '};')
+				-- tex.sprint('\\node at (' ..x.. ',0) [rotate=45, scale=0.6, anchor=north east, text=\timelinecolor] {\\footnotesize ' ..year.. '};')
 			else
 				tex.sprint('\\draw [' .. astyle .. ', thin, fill] (' ..x.. ', 0) -- +(0,-0.05);')
 			end
+		end
+		for i=1, #printyears do
+		  local year = printyears[i]
+			local x = dateX(year,1)
+			tex.sprint('\\node at (' ..x.. ',0) [rotate=45, scale=0.6, anchor=north east, text=\timelinecolor] {\\footnotesize ' ..year.. '};')
 		end
 
 

@@ -7,7 +7,7 @@ function printcommands(hlkey)
 	io.write("echo " .. hlkey .. " > highlighted\n")
 	-- io.write("cat highlighted\n")
 	io.write("lualatex timeline.tex\n")
-	io.write("convert -density 600 timeline.pdf -quality 90 timeline-highlight-" .. hlkey .. ".png\n")
+	io.write("convert -density 600 timeline.pdf -quality 90 " ..hlkey.. "-timeline.png\n")
 end
 
 require"csv"
@@ -16,7 +16,7 @@ local hlkey = "nohighlight"
 printcommands(hlkey)
 for r=1,#data do
 	hlkey = data[r][6]
-	hlkey = string.sub(hlkey,1,#hlkey-1)
+	hlkey = string.sub(hlkey,1,#hlkey)
 	if ( hlkey ~= "" ) then
 		printcommands(hlkey)
 	end
